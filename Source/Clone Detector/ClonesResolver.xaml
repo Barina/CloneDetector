@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="CloneDetector.ClonesResolver"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CloneDetector"
+             x:Name="clonesResolver"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <!-- A template to disable scrolling and to display the whole control. Useful when dropping the list inside a scroll view -->
+        <ControlTemplate x:Key="NoScroll">
+            <ItemsPresenter></ItemsPresenter>
+        </ControlTemplate>
+    </UserControl.Resources>
+
+    <Expander x:Name="rootExpander" Header="{Binding}" IsExpanded="True">
+        <!-- Header -->
+        <Expander.HeaderTemplate>
+            <DataTemplate>
+                <Grid HorizontalAlignment="{Binding Path=HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Header elements -->
+                    <TextBlock x:Name="countTextBlock" Grid.Column="0" Margin="2,0" Text="{Binding ElementName=clonesResolver, Path=CloneCount}"/>
+                    <TextBlock Grid.Column="1" Margin="2,0" Text="Clones sharing the HASH =>"/>
+                    <TextBlock x:Name="hashTextBlock" Grid.Column="2" Margin="2,0" FontSize="14" Text="{Binding ElementName=clonesResolver, Path=ClonesHash}" FontWeight="Bold"/>
+                </Grid>
+            </DataTemplate>
+        </Expander.HeaderTemplate>
+        
+        <!-- Content -->
+        <Grid x:Name="controlContentGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <Border Grid.ColumnSpan="2"
+                    BorderThickness="1"
+                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                    BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
+                <!-- Items list -->
+                <ListBox x:Name="fileList" Template="{StaticResource NoScroll}" ItemsSource="{Binding CloneList}">
+                    <ListBox.Resources>
+                        <!-- Stylize the list box -->
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Template" Value="{StaticResource StylizedListBoxItem}"/>
+                        </Style>
+                    </ListBox.Resources>
+                    <!-- Set the items to be CheckBoxes -->
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox x:Name="fileCheckBox"
+                                      HorizontalAlignment="Stretch"
+                                      Content="{Binding FilePath}"
+                                      IsChecked="{Binding IsSelected}"
+                                      Checked="FileCheckBox_CheckedChanged"
+                                      Unchecked="FileCheckBox_CheckedChanged"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+            
+            <!-- Comment text block -->
+            <TextBlock Name="commentTextBlock" Grid.Row="1" Margin="2"/>
+            
+            <!-- Resolve button -->
+            <local:GrowableButton x:Name="resolveButton"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  Prefix="❖"
+                                  Text="Resolve"
+                                  Margin="2"
+                                  Click="ResolveButton_Click" 
+                                  DesiredWidth="47" 
+                                  BracketsWidth="2"/>
+        </Grid>
+    </Expander>
+
+</UserControl>

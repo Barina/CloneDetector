@@ -1,0 +1,433 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CloneDetector"
+        xmlns:ee="http://schemas.microsoft.com/expression/2010/effects" 
+        xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" 
+        x:Name="window" 
+        x:Class="CloneDetector.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="450" Width="800"
+        Closing="Window_Closing" 
+        Background="#FFEDE8DF" 
+        AllowDrop="True" 
+        DragEnter="Window_DragEnter" 
+        DragLeave="Window_DragLeave" 
+        DragOver="Window_DragOver" 
+        Drop="Window_Drop" 
+        SizeChanged="Window_SizeChanged" 
+        StateChanged="Window_StateChanged">
+
+    <Window.Resources>
+        <Storyboard x:Key="ShowStartButton">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackPanel">
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="stackPanel">
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="stackPanel">
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseInOut" Power="4"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="stackPanel">
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseInOut" Power="4"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="startButton">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+            </BooleanAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="centerTextPanel">
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0,250,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseOut" Power="10"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="HideStartButton">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="stackPanel">
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0,150,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseIn"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="stackPanel">
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.8">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="stackPanel">
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.8">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackPanel">
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="startButton">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+            </BooleanAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="centerTextPanel">
+                <EasingThicknessKeyFrame KeyTime="0:0:2" Value="0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseInOut" Power="4"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ShowResultsPage">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="resultsContentBorder">
+                <EasingDoubleKeyFrame KeyTime="0" Value="300"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseOut" Power="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="resultsContentBorder">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.85"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.85"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="resultsContentBorder">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0.85"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.85"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="resultsContentBorder">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseOut" Power="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="closeButton">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+            </BooleanAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="resolveButton">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+            </BooleanAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="resultsBorder">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.AllowDrop)" Storyboard.TargetName="window">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+            </BooleanAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="HideResultsPage">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="resultsContentBorder">
+                <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="100">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseIn" Power="4"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="resultsContentBorder">
+                <SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:1" Value="0.85"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="resultsContentBorder">
+                <SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:1" Value="0.85"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="resultsContentBorder">
+                <SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <PowerEase EasingMode="EaseIn" Power="4"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="resolveButton">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+            </BooleanAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="closeButton">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+            </BooleanAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="resultsBorder">
+                <DiscreteObjectKeyFrame KeyTime="0:0:1" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.AllowDrop)" Storyboard.TargetName="window">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+            </BooleanAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <!-- root element -->
+    <Grid x:Name="theGrid">
+
+        <!-- Dashed border -->
+        <Rectangle StrokeThickness="8" StrokeDashArray="8,6" Margin="14" Stroke="#FFD7D3CA"/>
+
+        <!-- Start\Stop button area -->
+        <StackPanel x:Name="stackPanel" HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Orientation="Vertical" RenderTransformOrigin="0.5,0.5" Margin="0,100,0,0" Opacity="0">
+            <StackPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </StackPanel.RenderTransform>
+            <!-- the Start\Stop button itself -->
+            <local:RadialButtonProgressBar x:Name="startButton"
+                                       Width="280"
+                                       Height="280"
+                                       RadialButtonClick="RadialButtonProgressBar_RadialButtonClick" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Center message text -->
+        <StackPanel x:Name="centerTextPanel" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" IsHitTestVisible="False">
+            <StackPanel.Effect>
+                <DropShadowEffect Color="White" BlurRadius="0" ShadowDepth="2" Opacity="0.5"/>
+            </StackPanel.Effect>
+            <TextBlock Text="[" FontSize="48" FontWeight="Bold" TextAlignment="Left" Foreground="#FF9A968C" IsHitTestVisible="False"/>
+            <TextBlock x:Name="centerTextBlock" Text="DROP FILES HERE" Margin="4,4" FontSize="36" Foreground="#FF9A968C" FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Bottom" IsHitTestVisible="False"/>
+            <TextBlock Text="]" FontSize="48" FontWeight="Bold" TextAlignment="Right" Foreground="#FF9A968C" IsHitTestVisible="False"/>
+        </StackPanel>
+
+        <!-- File list panel -->
+        <Border x:Name="filesBorder" Margin="50,-400,50,400" BorderThickness="2,0,2,2" CornerRadius="0,0,5,5"
+                ClipToBounds="False" SnapsToDevicePixels="True">
+            <Border.Effect>
+                <DropShadowEffect Direction="270" BlurRadius="25" Opacity="0.75"/>
+            </Border.Effect>
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE4E4E4" Offset="0.552"/>
+                    <GradientStop Color="#FF9A968C" Offset="1"/>
+                    <GradientStop Color="#FFD2CFCA"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFEBE7DF" Offset="0"/>
+                    <GradientStop Color="#FFC8C4BA" Offset="0.3"/>
+                    <GradientStop Color="#FFC9C5BA" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <!-- root element for the file list panel -->
+            <Grid x:Name="filesGrid" Margin="0,50,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- header -->
+                <TextBlock x:Name="fileListHeaderTextBlock" Text="Edit the list of file paths to be compare." 
+                           Margin="10,10,10,10" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom"/>
+
+                <!-- buttons for editing the list -->
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Margin="0,10,10,0" HorizontalAlignment="Right">
+                    <local:GrowableButton x:Name="addFilesButton" Margin="2" BracketsWidth="2" Prefix="➕" Text="Add" DesiredWidth="31" Click="AddFilesButton_Click"/>
+                    <local:GrowableButton x:Name="removeFilesButton" Margin="2" BracketsWidth="2" Prefix="➖" Text="Remove" DesiredWidth="52" Click="RemoveFilesButton_Click" IsEnabled="False"/>
+                    <local:GrowableButton x:Name="clearFilesButton" Margin="2" BracketsWidth="2" Prefix="🚫" Text="Clear" DesiredWidth="34" Click="ClearFilesButton_Click" IsEnabled="False"/>
+                </StackPanel>
+
+                <!-- items ListBox -->
+                <ListBox x:Name="fileListBox" 
+                         Grid.Row="1"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="2"
+                         Margin="10,0,10,10"
+                         ItemsSource="{Binding Files}" 
+                         KeyUp="FileListBox_KeyUp"
+                         SelectionMode="Multiple" 
+                         Background="#7FFFFFFF" 
+                         SelectionChanged="FileListBox_SelectionChanged">
+                    <ListBox.Resources>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Template" Value="{StaticResource StylizedListBoxItem}"/>
+                        </Style>
+                    </ListBox.Resources>
+                </ListBox>
+
+                <!-- area for displaying a notch with expander to expand \ collapse the file list panel -->
+                <Border Grid.Column="1"
+                        Margin="8,-1,8,-30"
+                        Grid.ColumnSpan="1"
+                        Grid.Row="2" 
+                        SnapsToDevicePixels="True"
+                        BorderThickness="2,1,2,2"
+                        CornerRadius="0,0,5,5"
+                        Background="#FFC8C4BA" HorizontalAlignment="Right">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFC9C5BA" Offset="0"/>
+                            <GradientStop Color="#FFA4A097" Offset=".75"/>
+                            <GradientStop Color="#FFC8BB96" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+
+                    <!-- file list panel expander -->
+                    <Expander x:Name="fileListExpander"
+                              Header="Edit Files" 
+                              Margin="2,0,2,0"
+                              Width="80"
+                              HorizontalAlignment="Right" 
+                              Expanded="FilListExpander_Expanded" 
+                              Collapsed="FilListExpander_Collapsed" 
+                              VerticalAlignment="Center" 
+                              ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Results page -->
+        <Border x:Name="resultsBorder" AllowDrop="False" Visibility="Collapsed">
+            <!-- root element for the results page -->
+            <Border x:Name="resultsContentBorder"
+                    Background="#FFEDE8DF" 
+                    BorderThickness="2" 
+                    CornerRadius="2" 
+                    RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+                <Border.Effect>
+                    <DropShadowEffect Direction="270"
+                                      Opacity=".5"
+                                      BlurRadius="15"/>
+                </Border.Effect>
+                <Border.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFE4E4E4" Offset="0.552"/>
+                        <GradientStop Color="#FF9A968C" Offset="1"/>
+                        <GradientStop Color="#FFD2CFCA"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+
+                <Grid Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- area for header and description -->
+                    <StackPanel Margin="2" VerticalAlignment="Bottom">
+                        <TextBlock x:Name="resultsHeader" Text="Clones Detected" FontSize="16"/>
+                        <TextBlock x:Name="resultsDescription" Text="Choose which file(s) you wanna keep and click on Resolve when you done."/>
+                    </StackPanel>
+
+                    <!-- top right buttons -->
+                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <StackPanel.Effect>
+                            <DropShadowEffect ShadowDepth="2" Direction="270" BlurRadius="7" Opacity="0.5"/>
+                        </StackPanel.Effect>
+                        <local:GrowableButton x:Name="resolveButton" BracketsThickness="2" DesiredWidth="76" Prefix="❖" Text="Resolve All" Margin="2" Click="ResolveButton_Click" BracketsWidth="4" FontSize="15"/>
+                        <local:GrowableButton x:Name="closeButton" BracketsThickness="2" DesiredWidth="40" Prefix="✖" Text="Close" Margin="2" Click="CloseButton_Click" BracketsWidth="4" FontSize="15"/>
+                    </StackPanel>
+
+                    <!-- dynamic list of ClonesResolver items -->
+                    <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" IsDeferredScrollingEnabled="True">
+                        <StackPanel x:Name="resolveControlsStackPanel" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" VirtualizingPanel.VirtualizationMode="Recycling"/>
+                    </ScrollViewer>
+
+                    <!-- "no clones" message to display when 0 clones found -->
+                    <TextBlock x:Name="noClonesTextBlock" Text="NO CLONES DETECTED!" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="48" Visibility="Collapsed">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="White" BlurRadius="0" ShadowDepth="1"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                </Grid>
+            </Border>
+        </Border>
+
+        <!-- Vignette -->
+        <Rectangle x:Name="vignette" IsHitTestVisible="False" d:IsLocked="True">
+            <Rectangle.Fill>
+                <RadialGradientBrush>
+                    <GradientStop Color="#5927241A" Offset="1"/>
+                    <GradientStop Color="#00000000"/>
+                </RadialGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <!-- tooltip overlay -->
+        <Border x:Name="dropMessageBorder" BorderThickness="1" CornerRadius="3" IsHitTestVisible="False"
+                    RenderTransformOrigin="0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Collapsed">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF8A8475" Offset="0.689"/>
+                    <GradientStop Color="#FFDFDAD2"/>
+                    <GradientStop Color="#FFD0CCC3" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFD5D5D5"/>
+                    <GradientStop Color="#FF929292" Offset="0.5"/>
+                    <GradientStop Color="#FFD5D5D5" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.Effect>
+                <DropShadowEffect Opacity="0.3" BlurRadius="10" ShadowDepth="4" Direction="270"/>
+            </Border.Effect>
+            <Border.RenderTransform>
+                <TranslateTransform x:Name="dropMessageBorderTransform" X="1"/>
+            </Border.RenderTransform>
+            <TextBlock x:Name="dropMessageTextBlock" Margin="4,2" Text="Drop Here!" TextAlignment="Center" Foreground="#FF202020" IsHitTestVisible="False"
+                           ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16">
+                <TextBlock.Effect>
+                    <DropShadowEffect BlurRadius="0" Color="White" Opacity="0.5" ShadowDepth="1"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </Border>
+    </Grid>
+</Window>

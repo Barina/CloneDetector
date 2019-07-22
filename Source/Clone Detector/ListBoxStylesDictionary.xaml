@@ -1,0 +1,60 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CloneDetector">
+
+    <!--#region ListBoxItem style resources -->
+    <SolidColorBrush x:Key="ListBoxItem.MouseOver.Background" Color="#7FFFB500"/>
+    <SolidColorBrush x:Key="ListBoxItem.MouseOver.Border" Color="#BFA97800"/>
+
+    <SolidColorBrush x:Key="ListBoxItem.Selected.Background" Color="#7FDFC380"/>
+    <SolidColorBrush x:Key="ListBoxItem.InActive.Selected.Background" Color="#3FDFC380"/>
+    <SolidColorBrush x:Key="ListBoxItem.Selected.Border" Color="#BF907B4A"/>
+    <SolidColorBrush x:Key="ListBoxItem.InActive.Selected.Border" Color="#7F907B4A"/>
+    <!--#endregion-->
+
+    <!-- Style for ListBoxItem -->
+    <ControlTemplate x:Key="StylizedListBoxItem" TargetType="{x:Type ListBoxItem}">
+        <!-- The border of the list item -->
+        <Border x:Name="Bd"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                Padding="{TemplateBinding Padding}"
+                CornerRadius="1"
+                SnapsToDevicePixels="true">
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+        </Border>
+
+        <ControlTemplate.Triggers>
+            <!--#region on selection triggers -->
+            <!-- item is selected but the control is inactive -->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                    <Condition Property="IsSelected" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" TargetName="Bd" Value="{StaticResource ListBoxItem.InActive.Selected.Background}" />
+                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ListBoxItem.InActive.Selected.Border}" />
+            </MultiTrigger>
+            <!-- item is selected and the control is active -->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Selector.IsSelectionActive" Value="True" />
+                    <Condition Property="IsSelected" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" TargetName="Bd" Value="{StaticResource ListBoxItem.Selected.Background}" />
+                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ListBoxItem.Selected.Border}" />
+            </MultiTrigger>
+            <!--#endregion-->
+
+            <!-- on mouse over triggers -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" TargetName="Bd" Value="{StaticResource ListBoxItem.MouseOver.Background}" />
+                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ListBoxItem.MouseOver.Border}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+
+    </ControlTemplate>
+</ResourceDictionary>
