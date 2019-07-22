@@ -367,6 +367,7 @@ namespace CloneDetector
                 noClonesTextBlock.Visibility = Visibility.Collapsed;
                 resolveButton.Visibility = Visibility.Visible;
                 resultsDescription.Visibility = Visibility.Visible;
+                resolveButton.Prefix = "❖";
 
                 // results comes in pairs of HASH and list of FilePaths for files that shares the same hash
                 // so for every pair we'll create a new ClonesResolver control
