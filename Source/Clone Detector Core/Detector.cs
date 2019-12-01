@@ -70,6 +70,8 @@ namespace CloneDetectorCore
                 var result = new Dictionary<string, List<string>>();
 
                 // calculating the overall amount of tests
+                // using the formula for sum of arithmetic progression mentioned here:
+                // https://he.wikipedia.org/wiki/%D7%A1%D7%93%D7%A8%D7%94_%D7%97%D7%A9%D7%91%D7%95%D7%A0%D7%99%D7%AA
                 int testCount = distinctPaths.Count * (2 * 1 + (distinctPaths.Count - 1) * 1) / 2;
 
                 int filesTested = 0;
